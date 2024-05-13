@@ -10,7 +10,7 @@ public class GameCharacter {
 	private boolean alive;
 	
 	public GameCharacter() {
-		setPos(0, 0);
+		setPos(300, 300);
 		setVel(0, 0);
 		setSize(15);
 		setAlive(true);
