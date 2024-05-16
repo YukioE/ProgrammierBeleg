@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 public class Obstacle {
 
 	private int position, velocity, gapPos;
+	private boolean scored;
 	private final int GAP_SIZE = 150;
 	private final int WIDTH = 100;
 	private final int HEIGHT;
@@ -14,9 +15,9 @@ public class Obstacle {
 	public Obstacle(int windowWidth, int windowHeight) {
 		position = windowWidth;
 		HEIGHT = windowHeight;
-		velocity = -3;
+		scored = false;
+		velocity = -2;
 		gapPos = (int) (Math.random() * (windowHeight - GAP_SIZE + 1) + GAP_SIZE);
-		System.out.println(gapPos);
 	}
 
 	public int getPosition() {
@@ -57,6 +58,14 @@ public class Obstacle {
 
 	public void updatePosition() {
 		position += velocity;
+	}
+
+	public boolean isScored() {
+		return scored;
+	}
+
+	public void setScored(boolean scored) {
+		this.scored = scored;
 	}
 
 	public void render(GraphicsContext gc) {
@@ -101,5 +110,9 @@ public class Obstacle {
 		}
 
 		return collisionBoxes;
+	}
+
+	public Rectangle getScoreBox() {
+		return new Rectangle(position, gapPos - GAP_SIZE, WIDTH, GAP_SIZE);
 	}
 }

@@ -6,12 +6,13 @@ import javafx.scene.shape.Rectangle;
 
 public class GameCharacter {
 
-	private int posX, posY, velocity;
-	private final int SIZE = 15;
+	private int posX, posY;
+	private double velocity;
+	private final int SIZE = 20;
 
 	public GameCharacter() {
 		setPos(100, 300);
-		setVelocity(0);
+		setVelocity(3);
 	}
 
 	public int getPosX() {
@@ -28,23 +29,23 @@ public class GameCharacter {
 	}
 
 	public void addPos(int x, int y) {
-		posX = x;
-		posY = y;
+		posX += x;
+		posY += y;
 	}
 
 	public void updatePos() {
 		posY += velocity;
 	}
 
-	public int getVelocity() {
+	public double getVelocity() {
 		return velocity;
 	}
 
-	public void setVelocity(int yVelocity) {
+	public void setVelocity(double yVelocity) {
 		velocity = yVelocity;
 	}
 
-	public void addVel(int yVelocity) {
+	public void addVel(double yVelocity) {
 		velocity += yVelocity;
 	}
 
