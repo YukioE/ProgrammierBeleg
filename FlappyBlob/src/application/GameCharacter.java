@@ -6,14 +6,12 @@ import javafx.scene.shape.Rectangle;
 
 public class GameCharacter {
 
-	private int posX, posY, velX, velY, size;
-	private boolean alive;
-	
+	private int posX, posY, velocity;
+	private final int SIZE = 15;
+
 	public GameCharacter() {
-		setPos(300, 300);
-		setVel(0, 0);
-		setSize(15);
-		setAlive(true);
+		setPos(100, 300);
+		setVelocity(0);
 	}
 
 	public int getPosX() {
@@ -33,55 +31,36 @@ public class GameCharacter {
 		posX = x;
 		posY = y;
 	}
-	
+
 	public void updatePos() {
-		posX += velX;
-		posY += velY;
+		posY += velocity;
 	}
 
-	public int getVelX() {
-		return velX;
+	public int getVelocity() {
+		return velocity;
 	}
 
-	public int getVelY() {
-		return velY;
+	public void setVelocity(int yVelocity) {
+		velocity = yVelocity;
 	}
 
-	public void setVel(int x, int y) {
-		velX = x;
-		velY = y;
+	public void addVel(int yVelocity) {
+		velocity += yVelocity;
 	}
 
-	public void addVel(int x, int y) {
-		velX += x;
-		velY += y;
-	}
-	
 	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
-
-	public boolean isAlive() {
-		return alive;
-	}
-
-	public void setAlive(boolean alive) {
-		this.alive = alive;
+		return SIZE;
 	}
 
 	public void render(GraphicsContext gc) {
-		gc.setFill(Color.DARKGREY);
-		gc.fillRect(posX, posY, size, size);
+		gc.setFill(Color.ORANGERED);
+		gc.fillRect(posX, posY, SIZE, SIZE);
 	}
-	
+
 	/**
 	 * @return "Collisionbox" als ein Rectangle
 	 */
 	public Rectangle getCollision() {
-		return new Rectangle(posX, posY, size, size);
+		return new Rectangle(posX, posY, SIZE, SIZE);
 	}
 }
