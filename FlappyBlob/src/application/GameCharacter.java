@@ -10,6 +10,9 @@ public class GameCharacter {
 	private double velocity;
 	private final int SIZE = 20;
 
+	/**
+	 * Konstruktor
+	 */
 	public GameCharacter() {
 		setPos(100, 300);
 		setVelocity(3);
@@ -53,6 +56,11 @@ public class GameCharacter {
 		return SIZE;
 	}
 
+	/**
+	 * Render Methode welche den Charakter auf Canvas zeichnet
+	 * 
+	 * @param gc 2D Grafikkontext des Spiel-Canvas wird übergeben
+	 */
 	public void render(GraphicsContext gc) {
 		gc.setFill(Color.ORANGERED);
 		gc.fillRect(posX, posY, SIZE, SIZE);

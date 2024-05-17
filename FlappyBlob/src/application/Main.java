@@ -23,6 +23,7 @@ public class Main extends Application {
 			gc = canvas.getGraphicsContext2D();
 			root.getChildren().add(canvas);
 
+			// AnimationsTimer
 			new AnimationTimer() {
 				public void handle(long now) {
 					game.update();
