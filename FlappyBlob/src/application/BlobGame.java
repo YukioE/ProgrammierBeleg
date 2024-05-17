@@ -24,6 +24,9 @@ public class BlobGame {
 		return WINDOW_HEIGHT;
 	}
 
+	/**
+	 * Konstruktor welcher gleichzeitig als Spiel Initialisierung dient
+	 */
 	public BlobGame() {
 		character = new GameCharacter();
 		obstacles = new ArrayList<Obstacle>();
@@ -32,6 +35,10 @@ public class BlobGame {
 		obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
 	}
 
+	/**
+	 * update Methode welche Position aller Objekte aktualisiert, Kollisionen prüft
+	 * und neue Hindernisse hinzufügt
+	 */
 	public void update() {
 		// Blob Position updaten
 		character.updatePos();
@@ -62,21 +69,34 @@ public class BlobGame {
 		}
 	}
 
+	/**
+	 * Render-Methode welche die verschiedenen Spiel-Objekte auf den Canvas zeichnet
+	 * 
+	 * @param gc 2D Grafikkontext des Spiel-Canvas wird übergeben
+	 */
 	public void render(GraphicsContext gc) {
-		gc.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Hintergrund rendern
 		gc.setFill(Color.LIGHTBLUE);
 		gc.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// Charakter rendern
 		character.render(gc);
 
+		// Hindernisse rendern
 		for (Obstacle obstacle : obstacles) {
 			obstacle.render(gc);
 		}
 
+		// Score rendern
 		gc.setFill(Color.WHITESMOKE);
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
 		gc.fillText(String.valueOf(score), 15, 45);
 	}
 
+	/**
+	 * Sprung-Methode welche den Charakter "springen" lässt
+	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
 			jumped = 10;
@@ -84,14 +104,22 @@ public class BlobGame {
 		}
 	}
 
+	/**
+	 * Methode welche auf Kollision von Charakter mit Hindernissen sowie dem Boden
+	 * prüft
+	 * 
+	 * @return true falls Kollision, false falls nicht
+	 */
 	public boolean checkCollision() {
+		// Kollisionsbox des Charakters
 		Rectangle characterCollision = character.getCollision();
 
+		// Kollision mit Boden
 		if (characterCollision.getY() >= WINDOW_HEIGHT) {
 			return true;
 		}
 
-		// Check for collision between character and obstacles
+		// Kollision mit Hindernissen
 		for (Obstacle obstacle : obstacles) {
 			Rectangle[] obstacleCollisions = obstacle.getCollision();
 
@@ -103,6 +131,10 @@ public class BlobGame {
 		return false;
 	}
 
+	/**
+	 * Methode welche überprüft ob der Charakter mit einer Scorebox kollidiert und
+	 * den Score counter in diesem Fall um 1 erhöht
+	 */
 	public void checkScoreCollision() {
 		Rectangle characterCollision = character.getCollision();
 
@@ -112,11 +144,18 @@ public class BlobGame {
 			if (intersects(characterCollision, scoreBox) && !obstacle.isScored()) {
 				obstacle.setScored(true);
 				score++;
+				break;
 			}
 		}
-
 	}
 
+	/**
+	 * Methode um zu überprüfen ob 2 Rechtecke sich schneiden
+	 * 
+	 * @param r1 - Rechteck 1
+	 * @param r2 - Rechteck 2
+	 * @return true falls Rechtecke sich schneiden, false falls nicht
+	 */
 	public boolean intersects(Rectangle r1, Rectangle r2) {
 		return r1.getX() <= r2.getX() + r2.getWidth() && r1.getX() + r1.getWidth() >= r2.getX()
 				&& r1.getY() <= r2.getY() + r2.getHeight() && r1.getY() + r1.getHeight() >= r2.getY();

@@ -6,43 +6,51 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.base.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.base.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.controls.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.controls.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.fxml.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.fxml.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.graphics.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.graphics.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.media.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.media.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.swing.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.swing.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.web.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx.web.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx-swt.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/javafx-sdk-21.0.3/lib/javafx-swt.jar" sourcepath="C:/Program Files/Java/javafx-sdk-21.0.3/src.zip">
 		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Program%20Files/Java/javafx-sdk-21.0.3/openjfx-21.0.3-javadoc.zip!/javafx-21.0.3-javadoc"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>

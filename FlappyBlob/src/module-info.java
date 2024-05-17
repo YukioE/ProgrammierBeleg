@@ -1,6 +1,6 @@
 module FlappyBlob {
-	requires javafx.controls;
+	exports application;
+
+	requires javafx.base;
 	requires javafx.graphics;
-	
-	opens application to javafx.graphics, javafx.fxml;
 }
