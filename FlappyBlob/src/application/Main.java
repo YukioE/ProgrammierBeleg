@@ -29,6 +29,11 @@ public class Main extends Application {
 					game.update();
 					game.render(gc);
 					if (game.checkCollision()) {
+
+						// Highscore speichern falls der aktuelle Score höher ist
+						if (game.getHighScore().getCounter() < game.getScore().getCounter()) {
+							game.getScore().saveScore();	
+						}
 						this.stop();
 					}
 				}

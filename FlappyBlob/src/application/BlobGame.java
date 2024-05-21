@@ -12,7 +12,8 @@ public class BlobGame {
 
 	private GameCharacter character;
 	private ArrayList<Obstacle> obstacles;
-	private int jumped, score;
+	private int jumped;
+	private Score score, highscore;
 	private final int WINDOW_WIDTH = 700;
 	private final int WINDOW_HEIGHT = 700;
 
@@ -31,7 +32,8 @@ public class BlobGame {
 		character = new GameCharacter();
 		obstacles = new ArrayList<Obstacle>();
 		jumped = 0;
-		score = 0;
+		score = new Score(false);
+		highscore = new Score(true);
 		obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
 	}
 
@@ -44,7 +46,7 @@ public class BlobGame {
 		character.updatePos();
 		checkScoreCollision();
 
-		if (jumped > 0) {
+		if (jumped >= 0) {
 			jumped--;
 			character.addVel(1);
 		} else {
@@ -91,7 +93,11 @@ public class BlobGame {
 		// Score rendern
 		gc.setFill(Color.WHITESMOKE);
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
-		gc.fillText(String.valueOf(score), 15, 45);
+		gc.fillText(String.valueOf(score.getCounter()), 15, 45);
+		
+		// Highscore rendern
+		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
+		gc.fillText(String.valueOf(highscore.getCounter()), 15, 70);
 	}
 
 	/**
@@ -143,10 +149,18 @@ public class BlobGame {
 
 			if (intersects(characterCollision, scoreBox) && !obstacle.isScored()) {
 				obstacle.setScored(true);
-				score++;
+				score.incScore();
 				break;
 			}
 		}
+	}
+	
+	public Score getScore() {
+		return score;
+	}
+	
+	public Score getHighScore() {
+		return highscore;
 	}
 
 	/**
