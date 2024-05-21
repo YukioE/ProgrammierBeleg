@@ -102,7 +102,7 @@ public class Obstacle {
 
 		// Debug um ScoreBoxen/Trigger zu rendern
 //		gc.setFill(Color.BLACK);
-//		gc.fillRect(position + WIDTH, gapPos - GAP_SIZE, 1, GAP_SIZE);
+//		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
 
 	}
 
@@ -137,6 +137,6 @@ public class Obstacle {
 	 * @return ScoreBox als Rechteck
 	 */
 	public Rectangle getScoreBox() {
-		return new Rectangle(position + WIDTH, gapPos - GAP_SIZE, 1, GAP_SIZE);
+		return new Rectangle(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
 	}
 }
