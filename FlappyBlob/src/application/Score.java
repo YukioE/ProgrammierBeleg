@@ -27,7 +27,7 @@ public class Score {
 			try {
 				
 				// falls kein Highscore existiert wird "0" verwendet
-				if (!file.exists()) {
+				if (!file.exists() || file == null) {
 					counter = 0;
 				} else {
 					
@@ -86,8 +86,16 @@ public class Score {
 		counter++;
 	}
 
+	/**
+	 * 
+	 * @return counter
+	 */
 	public int getCounter() {
 		return counter;
+	}
+	
+	public String toString() {
+		return String.valueOf(counter);
 	}
 
 }

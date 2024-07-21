@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
 public class BlobGame {
 
@@ -14,16 +15,8 @@ public class BlobGame {
 	private ArrayList<Obstacle> obstacles;
 	private int jumped;
 	private Score score, highscore;
-	private final int WINDOW_WIDTH = 700;
-	private final int WINDOW_HEIGHT = 700;
-
-	public int getWINDOW_WIDTH() {
-		return WINDOW_WIDTH;
-	}
-
-	public int getWINDOW_HEIGHT() {
-		return WINDOW_HEIGHT;
-	}
+	public static final int WINDOW_WIDTH = 700;
+	public static final int WINDOW_HEIGHT = 700;
 
 	/**
 	 * Konstruktor welcher gleichzeitig als Spiel Initialisierung dient
@@ -46,7 +39,7 @@ public class BlobGame {
 		character.updatePos();
 		checkScoreCollision();
 
-		if (jumped >= 0) {
+		if (jumped > 0) {
 			jumped--;
 			character.addVel(1);
 		} else {
@@ -92,12 +85,14 @@ public class BlobGame {
 
 		// Score rendern
 		gc.setFill(Color.WHITESMOKE);
+		gc.setTextAlign(TextAlignment.CENTER);
+		
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
-		gc.fillText(String.valueOf(score.getCounter()), 15, 45);
+		gc.fillText(String.valueOf(score.getCounter()), 25, 45);
 		
 		// Highscore rendern
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
-		gc.fillText(String.valueOf(highscore.getCounter()), 15, 70);
+		gc.fillText(String.valueOf(highscore.getCounter()), 25, 70);
 	}
 
 	/**
