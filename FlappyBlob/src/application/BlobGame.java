@@ -1,6 +1,8 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 public class BlobGame {
 
 	private GameCharacter character;
-	private ArrayList<Obstacle> obstacles;
+	private LinkedList<Obstacle> obstacles;
 	private int jumped;
 	private Score score, highscore;
 	public static final int WINDOW_WIDTH = 700;
@@ -23,7 +25,7 @@ public class BlobGame {
 	 */
 	public BlobGame() {
 		character = new GameCharacter();
-		obstacles = new ArrayList<Obstacle>();
+		obstacles = new LinkedList<Obstacle>();
 		jumped = 0;
 		score = new Score(false);
 		highscore = new Score(true);
@@ -60,7 +62,8 @@ public class BlobGame {
 		// falls weniger als 4 Hindernisse auf dem Bildschirm sind und das neue
 		// Hindernis mit genügend Abstand platziert wird
 		if (obstacles.size() < 4 && obstacles.getLast().getPosition() + 300 <= WINDOW_WIDTH) {
-			obstacles.addLast(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
+			Obstacle lastObstacle = obstacles.getLast();
+			obstacles.addLast(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, lastObstacle));
 		}
 	}
 
@@ -86,13 +89,16 @@ public class BlobGame {
 		// Score rendern
 		gc.setFill(Color.WHITESMOKE);
 		gc.setTextAlign(TextAlignment.CENTER);
+		gc.setStroke(Color.BLACK);
 		
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
 		gc.fillText(String.valueOf(score.getCounter()), 25, 45);
+		gc.strokeText(String.valueOf(score.getCounter()), 25, 45);
 		
 		// Highscore rendern
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
 		gc.fillText(String.valueOf(highscore.getCounter()), 25, 70);
+		gc.strokeText(String.valueOf(highscore.getCounter()), 25, 70);
 	}
 
 	/**
