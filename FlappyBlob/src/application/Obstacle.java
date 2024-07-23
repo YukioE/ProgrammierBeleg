@@ -6,18 +6,15 @@ import javafx.scene.shape.Rectangle;
 
 public class Obstacle {
 
+	// position ist linke xPos des Hindernis
+	// velocity die Geschwindigkeit
+	// gapPos die obere yPos der Lücke
 	private int position, velocity, gapPos;
 	private boolean scored;
 	private final int GAP_SIZE = 150;
 	private final int WIDTH = 100;
 	private final int HEIGHT;
 
-	/**
-	 * Konstruktor um ein neues Hindernis zu erstellen
-	 * 
-	 * @param windowWidth - die Fensterbreite wird für Berechnungen übergeben
-	 * @param windowHeight - die Fensterhöhe wird für Berechnungen übergeben
-	 */
 	public Obstacle(int windowWidth, int windowHeight) {
 		position = windowWidth;
 		HEIGHT = windowHeight;
@@ -26,6 +23,27 @@ public class Obstacle {
 		
 		// Position der Lücke wird zufällig bestimmt
 		gapPos = (int) (Math.random() * (windowHeight - GAP_SIZE + 1) + GAP_SIZE);
+	}
+	
+	/**
+	 * Konstruktor um ein neues Hindernis zu erstellen
+	 * 
+	 * @param windowWidth - die Fensterbreite wird für Berechnungen übergeben
+	 * @param windowHeight - die Fensterhöhe wird für Berechnungen übergeben
+	 */
+	public Obstacle(int windowWidth, int windowHeight, Obstacle prevObstacle) {
+		position = windowWidth;
+		HEIGHT = windowHeight;
+		scored = false;
+		velocity = -2;
+		
+		// max Falldistanz
+        int maxFallDistance = 3 * ((position - prevObstacle.getPosition()) / -velocity);
+               
+        // Position der Lücke wird zufällig bestimmt mit Vorraussetzungen
+        // sodass der Charakter diese erreichen kann
+        int maxGapPos = Math.min(windowHeight - GAP_SIZE, prevObstacle.getGapPos() + maxFallDistance);
+        gapPos = (int) (Math.random() * (maxGapPos - GAP_SIZE + 1) + GAP_SIZE);
 	}
 
 	public int getPosition() {
@@ -72,6 +90,12 @@ public class Obstacle {
 		return scored;
 	}
 
+	/**
+	 * setzen des scored booleans,
+	 * damit ein Hindernis nicht mehrmals den Score erhöhen kann
+	 * 
+	 * @param scored
+	 */
 	public void setScored(boolean scored) {
 		this.scored = scored;
 	}
@@ -100,9 +124,9 @@ public class Obstacle {
 			gc.fillRect(position, 0, WIDTH, gapPos - GAP_SIZE);
 		}
 
-		// Debug um ScoreBoxen/Trigger zu rendern
-//		gc.setFill(Color.BLACK);
-//		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
+//		 Debug um ScoreBoxen/Trigger zu rendern
+		gc.setFill(Color.GOLD);
+		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
 
 	}
 
