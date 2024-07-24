@@ -8,13 +8,14 @@ public class GameCharacter {
 
 	private int posX, posY;
 	private final int SIZE = 20;
-	public static int velocity = 3;
+	private double velocity;
 
 	/**
 	 * Konstruktor
 	 */
 	public GameCharacter() {
 		setPos(100, 300);
+		velocity = 3;
 	}
 
 	public int getPosX() {
@@ -35,19 +36,20 @@ public class GameCharacter {
 		posY += y;
 	}
 
-	public void updatePos() {
-		posY += velocity;
+	public void updatePos(double gravity) {
+		velocity += gravity;
+		posY += velocity;		
 	}
 
 	public double getVelocity() {
 		return velocity;
 	}
 
-	public void setVelocity(int yVelocity) {
+	public void setVelocity(double yVelocity) {
 		velocity = yVelocity;
 	}
 
-	public void addVel(int yVelocity) {
+	public void addVel(double yVelocity) {
 		velocity += yVelocity;
 	}
 

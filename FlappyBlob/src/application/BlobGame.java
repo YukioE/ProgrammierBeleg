@@ -1,8 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,8 +12,8 @@ import javafx.scene.text.TextAlignment;
 public class BlobGame {
 
 	private GameCharacter character;
-	private LinkedList<Obstacle> obstacles;
-	private int jumped;
+	private ArrayList<Obstacle> obstacles;
+	public static final double GRAVITY = 0.1;
 	private Score score, highscore;
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
@@ -25,8 +23,7 @@ public class BlobGame {
 	 */
 	public BlobGame() {
 		character = new GameCharacter();
-		obstacles = new LinkedList<Obstacle>();
-		jumped = 0;
+		obstacles = new ArrayList<Obstacle>();
 		score = new Score(false);
 		highscore = new Score(true);
 		obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -38,15 +35,8 @@ public class BlobGame {
 	 */
 	public void update() {
 		// Blob Position updaten
-		character.updatePos();
+		character.updatePos(GRAVITY);
 		checkScoreCollision();
-
-		if (jumped > 0) {
-			jumped--;
-			character.addVel(1);
-		} else {
-			character.setVelocity(3);
-		}
 
 		// Hindernisse updaten + entfernen sobald sie nicht mehr zu sehen sind
 		for (Obstacle obstacle : obstacles) {
@@ -106,8 +96,7 @@ public class BlobGame {
 	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
-			jumped = 10;
-			character.setVelocity(-jumped);
+			character.setVelocity(-GRAVITY * 35);
 		}
 	}
 
