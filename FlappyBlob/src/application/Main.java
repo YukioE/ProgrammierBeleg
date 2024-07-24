@@ -96,8 +96,7 @@ public class Main extends Application {
 					if (gameState == GameState.TITLE_SCREEN || gameState == GameState.PAUSED) {
 						timer.start();
 						gameState = GameState.RUNNING;
-					} 
-					if (gameState == GameState.RUNNING) {
+					} else if (gameState == GameState.RUNNING) {
 						game.jump();
 					}
 				} else if (e.getCode() == KeyCode.R && gameState == GameState.GAME_OVER) {

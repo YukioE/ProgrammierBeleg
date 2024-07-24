@@ -9,8 +9,10 @@ public class Obstacle {
 	// position ist linke xPos des Hindernis
 	// velocity die Geschwindigkeit
 	// gapPos die obere yPos der Lücke
-	private int position, velocity, gapPos;
+	private double position;
+	private int gapPos;
 	private boolean scored;
+	private double velocity = -1.5;
 	private final int GAP_SIZE = 150;
 	private final int WIDTH = 100;
 	private final int HEIGHT;
@@ -19,7 +21,7 @@ public class Obstacle {
 		position = windowWidth;
 		HEIGHT = windowHeight;
 		scored = false;
-		velocity = -2;
+		
 		
 		// Position der Lücke wird zufällig bestimmt
 		gapPos = (int) (Math.random() * (windowHeight - GAP_SIZE + 1) + GAP_SIZE);
@@ -30,23 +32,25 @@ public class Obstacle {
 	 * 
 	 * @param windowWidth - die Fensterbreite wird für Berechnungen übergeben
 	 * @param windowHeight - die Fensterhöhe wird für Berechnungen übergeben
+	 * @param prevObstacle - das vorherige Hindernis wird für die Lücken Berechnung übergeben
 	 */
 	public Obstacle(int windowWidth, int windowHeight, Obstacle prevObstacle) {
 		position = windowWidth;
 		HEIGHT = windowHeight;
 		scored = false;
-		velocity = -2;
 		
 		// max Falldistanz
-        int maxFallDistance = 3 * ((position - prevObstacle.getPosition()) / -velocity);
+		int tickAmount = (int) ((position - prevObstacle.getPosition()) / -velocity);
+        int maxFallDistance = (int) ((3 + BlobGame.GRAVITY * tickAmount) * tickAmount);
                
         // Position der Lücke wird zufällig bestimmt mit Vorraussetzungen
         // sodass der Charakter diese erreichen kann
+        int minGapPos = Math.max(GAP_SIZE, prevObstacle.getGapPos() + GAP_SIZE - maxFallDistance);
         int maxGapPos = Math.min(windowHeight - GAP_SIZE, prevObstacle.getGapPos() + maxFallDistance);
-        gapPos = (int) (Math.random() * (maxGapPos - GAP_SIZE + 1) + GAP_SIZE);
+        gapPos = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
 	}
 
-	public int getPosition() {
+	public double getPosition() {
 		return position;
 	}
 
@@ -54,7 +58,7 @@ public class Obstacle {
 		this.position = position;
 	}
 
-	public int getVelocity() {
+	public double getVelocity() {
 		return velocity;
 	}
 
@@ -125,8 +129,8 @@ public class Obstacle {
 		}
 
 //		 Debug um ScoreBoxen/Trigger zu rendern
-		gc.setFill(Color.GOLD);
-		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
+//		gc.setFill(Color.GOLD);
+//		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
 
 	}
 
@@ -150,7 +154,7 @@ public class Obstacle {
 			collisionBoxes[0] = new Rectangle(position, gapPos, WIDTH, HEIGHT - GAP_SIZE);
 		} else {
 			// 3. Fall: Lücke ist an keinem Ende des Fensters -> es werden zwei Hindernisse
-			// benötigt
+			// benötigt 
 			collisionBoxes[0] = new Rectangle(position, gapPos, WIDTH, HEIGHT - gapPos);
 			collisionBoxes[1] = new Rectangle(position, 0, WIDTH, gapPos - GAP_SIZE);
 		}
