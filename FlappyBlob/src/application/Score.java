@@ -9,6 +9,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
+
 public class Score {
 
 	private int counter;
@@ -82,8 +89,21 @@ public class Score {
 	/**
 	 * Methode welche den Score Counter um 1 erhöht
 	 */
-	public void incScore() {
+	public void incrementScore() {
 		counter++;
+	}
+	
+	public void render(int posX, int posY, int fontSize, GraphicsContext gc) {
+		
+		// Farbe einstellen
+		gc.setFill(Color.WHITESMOKE);
+		gc.setTextAlign(TextAlignment.CENTER);
+		gc.setStroke(Color.BLACK);
+		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, fontSize));
+		
+		// text rendern
+		gc.fillText(String.valueOf(counter), posX, posY);
+		gc.strokeText(String.valueOf(counter), posX, posY);		
 	}
 
 	/**

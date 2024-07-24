@@ -2,21 +2,20 @@ package application;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 
 public class BlobGame {
 
-	private GameCharacter character;
-	private ArrayList<Obstacle> obstacles;
 	public static final double GRAVITY = 0.1;
-	private Score score, highscore;
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
+	public static final Image TOP_PIPE_IMG = new Image(BlobGame.class.getResource("pipe.png").toExternalForm());
+	public static final Image BOTTOM_PIPE_IMG = new Image(BlobGame.class.getResource("pipe2.png").toExternalForm());
+	private Score score, highscore;
+	private GameCharacter character;
+	private ArrayList<Obstacle> obstacles;
 
 	/**
 	 * Konstruktor welcher gleichzeitig als Spiel Initialisierung dient
@@ -34,14 +33,16 @@ public class BlobGame {
 	 * und neue Hindernisse hinzufügt
 	 */
 	public void update() {
-		// Blob Position updaten
+		// Blob Position mit Schwerkraft updaten
 		character.updatePos(GRAVITY);
+		
 		checkScoreCollision();
 
 		// Hindernisse updaten + entfernen sobald sie nicht mehr zu sehen sind
 		for (Obstacle obstacle : obstacles) {
 			obstacle.updatePosition();
 
+			// Hindernis wird entfernt sobald seine letzten Pixel nicht mehr zu sehen sind
 			if (obstacle.getPosition() + obstacle.getWidth() <= 0) {
 				obstacles.removeFirst();
 				break;
@@ -52,8 +53,7 @@ public class BlobGame {
 		// falls weniger als 4 Hindernisse auf dem Bildschirm sind und das neue
 		// Hindernis mit genügend Abstand platziert wird
 		if (obstacles.size() < 4 && obstacles.getLast().getPosition() + 300 <= WINDOW_WIDTH) {
-			Obstacle lastObstacle = obstacles.getLast();
-			obstacles.addLast(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, lastObstacle));
+			obstacles.addLast(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, obstacles.getLast()));
 		}
 	}
 
@@ -76,23 +76,14 @@ public class BlobGame {
 			obstacle.render(gc);
 		}
 
-		// Score rendern
-		gc.setFill(Color.WHITESMOKE);
-		gc.setTextAlign(TextAlignment.CENTER);
-		gc.setStroke(Color.BLACK);
-		
-		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
-		gc.fillText(String.valueOf(score.getCounter()), 25, 45);
-		gc.strokeText(String.valueOf(score.getCounter()), 25, 45);
-		
-		// Highscore rendern
-		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
-		gc.fillText(String.valueOf(highscore.getCounter()), 25, 70);
-		gc.strokeText(String.valueOf(highscore.getCounter()), 25, 70);
+		// Scores rendern
+		score.render(25, 45, 45, gc);
+		highscore.render(25, 70, 25, gc);
 	}
 
 	/**
-	 * Sprung-Methode welche den Charakter "springen" lässt
+	 * Sprung-Methode welche den Charakter "Springen" lässt,
+	 * falls er nicht über den oberen Fensterrand befinden wird.
 	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
@@ -137,9 +128,10 @@ public class BlobGame {
 		for (Obstacle obstacle : obstacles) {
 			Rectangle scoreBox = obstacle.getScoreBox();
 
+			// falls Kollision -> Hindernis wird als scored markiert & Score wird um 1 erhöht
 			if (intersects(characterCollision, scoreBox) && !obstacle.isScored()) {
 				obstacle.setScored(true);
-				score.incScore();
+				score.incrementScore();
 				break;
 			}
 		}
