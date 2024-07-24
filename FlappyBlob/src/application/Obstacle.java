@@ -8,7 +8,7 @@ public class Obstacle {
 
 	// position ist linke xPos des Hindernis
 	// velocity die Geschwindigkeit
-	// gapPos die obere yPos der Lücke
+	// gapPos die untere yPos der Lücke
 	private double position;
 	private int gapPos;
 	private boolean scored;
@@ -22,9 +22,8 @@ public class Obstacle {
 		HEIGHT = windowHeight;
 		scored = false;
 		
-		
 		// Position der Lücke wird zufällig bestimmt
-		gapPos = (int) (Math.random() * (windowHeight - GAP_SIZE + 1) + GAP_SIZE);
+		gapPos = (int) (Math.random() * (windowHeight - GAP_SIZE + 2) + GAP_SIZE + 1);
 	}
 	
 	/**
@@ -39,14 +38,18 @@ public class Obstacle {
 		HEIGHT = windowHeight;
 		scored = false;
 		
-		// max Falldistanz
+		// Anzahl an Updates welche zwischen 2 Hindernissen durchgeführt werden
+		// (position des Hindernis - Position des vorherigen Hindernis) / velocity
 		int tickAmount = (int) ((position - prevObstacle.getPosition()) / -velocity);
+		
+		// max Falldistanz berechnen
+		// GameCharacter static Velocity (3) + Schwerkraft * Anzahl Updates * Anzahl Updates
         int maxFallDistance = (int) ((3 + BlobGame.GRAVITY * tickAmount) * tickAmount);
                
         // Position der Lücke wird zufällig bestimmt mit Vorraussetzungen
         // sodass der Charakter diese erreichen kann
-        int minGapPos = Math.max(GAP_SIZE, prevObstacle.getGapPos() + GAP_SIZE - maxFallDistance);
-        int maxGapPos = Math.min(windowHeight - GAP_SIZE, prevObstacle.getGapPos() + maxFallDistance);
+        int minGapPos = Math.max(GAP_SIZE + 1, prevObstacle.getGapPos() + GAP_SIZE - maxFallDistance + 1);
+        int maxGapPos = Math.min(windowHeight - GAP_SIZE - 1, prevObstacle.getGapPos() + maxFallDistance - 1);
         gapPos = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
 	}
 
@@ -113,20 +116,8 @@ public class Obstacle {
 	public void render(GraphicsContext gc) {
 		gc.setFill(Color.DARKGREEN);
 
-		if (gapPos == HEIGHT) {
-			// 1. Fall: Lücke ist am oberen Ende des Fensters -> es wird nur ein Hindernis
-			// benötigt
-			gc.fillRect(position, gapPos, WIDTH, HEIGHT - GAP_SIZE);
-		} else if (gapPos == GAP_SIZE) {
-			// 2. Fall: Lücke ist am unteren Ende des Fensters -> es wird nur ein Hindernis
-			// benötigt
-			gc.fillRect(position, 0, WIDTH, HEIGHT - GAP_SIZE);
-		} else {
-			// 3. Fall: Lücke ist an keinem Ende des Fensters -> es werden zwei Hindernisse
-			// benötigt
-			gc.fillRect(position, gapPos, WIDTH, HEIGHT - gapPos);
-			gc.fillRect(position, 0, WIDTH, gapPos - GAP_SIZE);
-		}
+		gc.drawImage(BlobGame.BOTTOM_PIPE_IMG, position, gapPos, WIDTH, HEIGHT - gapPos);
+		gc.drawImage(BlobGame.TOP_PIPE_IMG, position, 0, WIDTH, gapPos - GAP_SIZE);
 
 //		 Debug um ScoreBoxen/Trigger zu rendern
 //		gc.setFill(Color.GOLD);
@@ -135,29 +126,17 @@ public class Obstacle {
 	}
 
 	/**
-	 * Kollisions Methode welche basierend auf der Position der Lücke eine oder zwei
+	 * Kollisions Methode welche basierend auf der Position der Lücke zwei
 	 * Kollisionsboxen aus Rechtecken erstellt
 	 * 
-	 * @return Kollisionsbox Array aus 2 Rechtecken, 1 falls die Lücke sich am
-	 *         oberen oder unteren Rand des Fensters befindet
+	 * @return Kollisionsbox Array aus 2 Rechtecken
 	 */
 	public Rectangle[] getCollision() {
 		Rectangle[] collisionBoxes = new Rectangle[2];
 
-		if (gapPos == HEIGHT) {
-			// 1. Fall: Lücke ist am unteren Ende des Fensters -> es wird ein Hindernis
-			// benötigt
-			collisionBoxes[0] = new Rectangle(position, 0, WIDTH, HEIGHT - GAP_SIZE);
-		} else if (gapPos == GAP_SIZE) {
-			// 2. Fall: Lücke ist am oberen Ende des Fensters -> es wird ein Hindernis
-			// benötigt
-			collisionBoxes[0] = new Rectangle(position, gapPos, WIDTH, HEIGHT - GAP_SIZE);
-		} else {
-			// 3. Fall: Lücke ist an keinem Ende des Fensters -> es werden zwei Hindernisse
-			// benötigt 
-			collisionBoxes[0] = new Rectangle(position, gapPos, WIDTH, HEIGHT - gapPos);
-			collisionBoxes[1] = new Rectangle(position, 0, WIDTH, gapPos - GAP_SIZE);
-		}
+		collisionBoxes[0] = new Rectangle(position, gapPos, WIDTH, HEIGHT - gapPos);
+		collisionBoxes[1] = new Rectangle(position, 0, WIDTH, gapPos - GAP_SIZE);
+
 		return collisionBoxes;
 	}
 
