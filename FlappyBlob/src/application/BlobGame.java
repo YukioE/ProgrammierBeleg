@@ -13,6 +13,7 @@ public class BlobGame {
 	public static final int WINDOW_HEIGHT = 700;
 	public static final Image TOP_PIPE_IMG = new Image(BlobGame.class.getResource("pipe.png").toExternalForm());
 	public static final Image BOTTOM_PIPE_IMG = new Image(BlobGame.class.getResource("pipe2.png").toExternalForm());
+	
 	private Score score, highscore;
 	private GameCharacter character;
 	private ArrayList<Obstacle> obstacles;

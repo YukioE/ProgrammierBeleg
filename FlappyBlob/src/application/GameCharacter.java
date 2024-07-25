@@ -1,56 +1,38 @@
 package application;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 public class GameCharacter {
 
 	private int posX, posY;
-	private final int SIZE = 20;
 	private double velocity;
+	private final int SIZE = 20;
+	private final Image CHARACTER_IMG;
+	public static final double INITIAL_VELOCITY = 3;
 
 	/**
 	 * Konstruktor
 	 */
 	public GameCharacter() {
-		setPos(100, 300);
-		velocity = 3;
+		posX = 100;
+		posY = 300;
+		velocity = INITIAL_VELOCITY;
+		CHARACTER_IMG = new Image(getClass().getResource("character.png").toExternalForm());
 	}
 
-	public int getPosX() {
-		return posX;
+	public void updatePos(double gravity) {
+		velocity += gravity;
+		posY += velocity;
 	}
 
 	public int getPosY() {
 		return posY;
 	}
-
-	public void setPos(int x, int y) {
-		posX = x;
-		posY = y;
-	}
-
-	public void addPos(int x, int y) {
-		posX += x;
-		posY += y;
-	}
-
-	public void updatePos(double gravity) {
-		velocity += gravity;
-		posY += velocity;		
-	}
-
-	public double getVelocity() {
-		return velocity;
-	}
-
-	public void setVelocity(double yVelocity) {
-		velocity = yVelocity;
-	}
-
-	public void addVel(double yVelocity) {
-		velocity += yVelocity;
+	
+	public void setVelocity(double velocity) {
+		this.velocity = velocity;
 	}
 
 	public int getSize() {
@@ -63,8 +45,7 @@ public class GameCharacter {
 	 * @param gc 2D Grafikkontext des Spiel-Canvas wird übergeben
 	 */
 	public void render(GraphicsContext gc) {
-		gc.setFill(Color.ORANGERED);
-		gc.fillRect(posX, posY, SIZE, SIZE);
+		gc.drawImage(CHARACTER_IMG, posX, posY, SIZE, SIZE);
 	}
 
 	/**
