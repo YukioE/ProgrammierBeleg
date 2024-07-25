@@ -10,20 +10,26 @@ public class Obstacle {
 	// velocity die Geschwindigkeit
 	// gapPos die untere yPos der Lücke
 	private double position;
-	private int gapPos;
 	private boolean scored;
-	private double velocity = -1.5;
+	private final int GAP_POS;
+	private final double VELOCITY = -1.5;
 	private final int GAP_SIZE = 150;
 	private final int WIDTH = 100;
 	private final int HEIGHT;
 
+	/**
+	 * Konstruktor für das erste Hindernis
+	 * 
+	 * @param windowWidth
+	 * @param windowHeight
+	 */
 	public Obstacle(int windowWidth, int windowHeight) {
 		position = windowWidth;
 		HEIGHT = windowHeight;
 		scored = false;
 		
 		// Position der Lücke wird zufällig bestimmt
-		gapPos = (int) (Math.random() * (windowHeight - GAP_SIZE + 2) + GAP_SIZE + 1);
+		GAP_POS = (int) (Math.random() * (windowHeight - GAP_SIZE + 2) + GAP_SIZE + 1);
 	}
 	
 	/**
@@ -39,38 +45,22 @@ public class Obstacle {
 		scored = false;
 		
 		// Anzahl an Updates welche zwischen 2 Hindernissen durchgeführt werden
-		// (position des Hindernis - Position des vorherigen Hindernis) / velocity
-		int tickAmount = (int) ((position - prevObstacle.getPosition()) / -velocity);
+		// (position des Hindernis - Position des vorherigen HinderGAP_POSelocity
+		int tickAmount = (int) ((position - prevObstacle.getPosition()) / -VELOCITY);
 		
 		// max Falldistanz berechnen
 		// GameCharacter static Velocity (3) + Schwerkraft * Anzahl Updates * Anzahl Updates
-        int maxFallDistance = (int) ((3 + BlobGame.GRAVITY * tickAmount) * tickAmount);
+        int maxFallDistance = (int) ((GameCharacter.INITIAL_VELOCITY + BlobGame.GRAVITY * tickAmount) * tickAmount);
                
         // Position der Lücke wird zufällig bestimmt mit Vorraussetzungen
         // sodass der Charakter diese erreichen kann
         int minGapPos = Math.max(GAP_SIZE + 1, prevObstacle.getGapPos() + GAP_SIZE - maxFallDistance + 1);
         int maxGapPos = Math.min(windowHeight - GAP_SIZE - 1, prevObstacle.getGapPos() + maxFallDistance - 1);
-        gapPos = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
+        GAP_POS = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
 	}
 
 	public double getPosition() {
 		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
-
-	public double getVelocity() {
-		return velocity;
-	}
-
-	public void setVelocity(int velocity) {
-		this.velocity = velocity;
-	}
-
-	public void addVelocity(int velocity) {
-		this.velocity += velocity;
 	}
 
 	public int getWidth() {
@@ -78,19 +68,11 @@ public class Obstacle {
 	}
 
 	public int getGapPos() {
-		return gapPos;
-	}
-
-	public void setGapPos(int gapPos) {
-		this.gapPos = gapPos;
-	}
-
-	public int getGAP_SIZE() {
-		return GAP_SIZE;
+		return GAP_POS;
 	}
 
 	public void updatePosition() {
-		position += velocity;
+		position += VELOCITY;
 	}
 
 	public boolean isScored() {
@@ -114,15 +96,12 @@ public class Obstacle {
 	 * @param gc 2D Grafikkontext des Spiel-Canvas wird übergeben
 	 */
 	public void render(GraphicsContext gc) {
-		gc.setFill(Color.DARKGREEN);
-
-		gc.drawImage(BlobGame.BOTTOM_PIPE_IMG, position, gapPos, WIDTH, HEIGHT - gapPos);
-		gc.drawImage(BlobGame.TOP_PIPE_IMG, position, 0, WIDTH, gapPos - GAP_SIZE);
+		gc.drawImage(BlobGame.BOTTOM_PIPE_IMG, position, GAP_POS, WIDTH, HEIGHT - GAP_POS);
+		gc.drawImage(BlobGame.TOP_PIPE_IMG, position, 0, WIDTH, GAP_POS - GAP_SIZE);
 
 //		 Debug um ScoreBoxen/Trigger zu rendern
 //		gc.setFill(Color.GOLD);
-//		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
-
+//		gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 10, GAP_SIZE);
 	}
 
 	/**
@@ -134,8 +113,8 @@ public class Obstacle {
 	public Rectangle[] getCollision() {
 		Rectangle[] collisionBoxes = new Rectangle[2];
 
-		collisionBoxes[0] = new Rectangle(position, gapPos, WIDTH, HEIGHT - gapPos);
-		collisionBoxes[1] = new Rectangle(position, 0, WIDTH, gapPos - GAP_SIZE);
+		collisionBoxes[0] = new Rectangle(position, GAP_POS, WIDTH, HEIGHT - GAP_POS);
+		collisionBoxes[1] = new Rectangle(position, 0, WIDTH, GAP_POS - GAP_SIZE);
 
 		return collisionBoxes;
 	}
@@ -144,6 +123,6 @@ public class Obstacle {
 	 * @return ScoreBox als Rechteck
 	 */
 	public Rectangle getScoreBox() {
-		return new Rectangle(position + WIDTH + 20, gapPos - GAP_SIZE, 1, GAP_SIZE);
+		return new Rectangle(position + WIDTH + 20, GAP_POS - GAP_SIZE, 1, GAP_SIZE);
 	}
 }

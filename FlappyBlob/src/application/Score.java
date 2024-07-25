@@ -19,9 +19,9 @@ import javafx.scene.text.TextAlignment;
 public class Score {
 
 	private int counter;
-	private File file = new File(".//Highscore.data");
-	private BufferedWriter out = null;
-	private BufferedReader in = null;
+	private final File SCORE_FILE = new File("Highscore.data");
+	private BufferedWriter out;
+	private BufferedReader in;
 
 	/**
 	 * Konstruktor
@@ -34,12 +34,12 @@ public class Score {
 			try {
 				
 				// falls kein Highscore existiert wird "0" verwendet
-				if (!file.exists() || file == null) {
+				if (!SCORE_FILE.exists() || SCORE_FILE == null) {
 					counter = 0;
 				} else {
 					
 					// Highscore einlesen
-					in = new BufferedReader(new FileReader(file));
+					in = new BufferedReader(new FileReader(SCORE_FILE));
 					String line = in.readLine();
 
 					if (line != null) {
@@ -72,12 +72,12 @@ public class Score {
 		try {
 
 			// Datei löschen falls ein älterer Highscore existiert
-			if (file.exists()) {
-				Files.delete(Paths.get(file.toString()));
+			if (SCORE_FILE.exists()) {
+				Files.delete(Paths.get(SCORE_FILE.toString()));
 			}
 
 			// Highscore in Datei schreiben
-			out = new BufferedWriter(new FileWriter(file));
+			out = new BufferedWriter(new FileWriter(SCORE_FILE));
 			out.write(String.valueOf(counter));
 
 			out.close();
@@ -93,6 +93,14 @@ public class Score {
 		counter++;
 	}
 	
+	/**
+	 * rendert den Score Counter
+	 * 
+	 * @param posX
+	 * @param posY
+	 * @param fontSize
+	 * @param gc
+	 */
 	public void render(int posX, int posY, int fontSize, GraphicsContext gc) {
 		
 		// Farbe einstellen
@@ -106,10 +114,6 @@ public class Score {
 		gc.strokeText(String.valueOf(counter), posX, posY);		
 	}
 
-	/**
-	 * 
-	 * @return counter
-	 */
 	public int getCounter() {
 		return counter;
 	}
