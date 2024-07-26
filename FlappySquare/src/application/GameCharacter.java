@@ -1,4 +1,4 @@
-package application;
+//package application;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -6,20 +6,21 @@ import javafx.scene.shape.Rectangle;
 
 public class GameCharacter {
 
-	private int posX, posY;
-	private double velocity;
-	private final int SIZE = 20;
-	private final Image CHARACTER_IMG;
 	public static final double INITIAL_VELOCITY = 3;
+	private double velocity;
+	private int posX, posY;
+	private final int size = 20;
+	private final Image characterImg, characterImg2;
 
 	/**
 	 * Konstruktor
 	 */
 	public GameCharacter() {
 		posX = 100;
-		posY = 300;
+		posY = SquareGame.WINDOW_HEIGHT/2;
 		velocity = INITIAL_VELOCITY;
-		CHARACTER_IMG = new Image(getClass().getResource("character.png").toExternalForm());
+		characterImg = new Image(getClass().getResource("character.png").toExternalForm());
+		characterImg2 = new Image(getClass().getResource("character2.png").toExternalForm());		
 	}
 
 	public void updatePos(double gravity) {
@@ -30,28 +31,30 @@ public class GameCharacter {
 	public int getPosY() {
 		return posY;
 	}
-	
+
 	public void setVelocity(double velocity) {
 		this.velocity = velocity;
 	}
 
-	public int getSize() {
-		return SIZE;
-	}
-
 	/**
 	 * Render Methode welche den Charakter auf Canvas zeichnet
+	 * falls der Charakter fliegt/springt werden Flügel auf seinem Rücken gerendert
 	 * 
 	 * @param gc 2D Grafikkontext des Spiel-Canvas wird übergeben
 	 */
 	public void render(GraphicsContext gc) {
-		gc.drawImage(CHARACTER_IMG, posX, posY, SIZE, SIZE);
+		if (velocity > 0) {
+			gc.drawImage(characterImg, posX, posY, size, size);
+		} else {
+			gc.drawImage(characterImg2, posX - characterImg2.getWidth() + size,
+					posY, characterImg2.getWidth(), characterImg2.getHeight());
+		}
 	}
 
 	/**
 	 * @return "Collisionbox" als ein Rectangle
 	 */
 	public Rectangle getCollision() {
-		return new Rectangle(posX, posY, SIZE, SIZE);
+		return new Rectangle(posX, posY, size, size);
 	}
 }

@@ -1,4 +1,4 @@
-package application;
+//package application;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -12,14 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
 public class Main extends Application {
 
-	private BlobGame game;
-	private final int WIDTH = BlobGame.WINDOW_WIDTH;
-	private final int HEIGHT = BlobGame.WINDOW_HEIGHT;
-	private Canvas canvas;
+	private final int width = SquareGame.WINDOW_WIDTH;
+	private final int height = SquareGame.WINDOW_HEIGHT;
+	private SquareGame game;
 	private GraphicsContext gc;
+	private Canvas canvas;
 	private AnimationTimer timer;
 	private GameState gameState;
 
@@ -35,6 +36,7 @@ public class Main extends Application {
 	private void drawText(GraphicsContext gc, String text, double posX, double posY) {
 		gc.setFill(Color.BLACK);
 		gc.setStroke(Color.WHITE);
+		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
 		gc.fillText(text, posX, posY);
 		gc.strokeText(text, posX, posY);
@@ -48,7 +50,7 @@ public class Main extends Application {
 	 */
 	private void coverBackground(GraphicsContext gc) {
 		gc.setFill(Color.rgb(0, 0, 0, 0.5));
-		gc.fillRect(0, 0, WIDTH, HEIGHT);
+		gc.fillRect(0, 0, width, height);
 	}
 
 	/**
@@ -57,11 +59,11 @@ public class Main extends Application {
 	 * @param gc
 	 */
 	private void renderTitleScreen(GraphicsContext gc) {
-		game = new BlobGame();
+		game = new SquareGame();
 		game.render(gc);
 		coverBackground(gc);
-		drawText(gc, "FLAPPYBLOB", WIDTH / 2, HEIGHT / 2 - 100);
-		drawText(gc, "press SPACE to play", WIDTH / 2, HEIGHT / 2 + 70);
+		drawText(gc, "FLAPPYSQUARE", width / 2, height / 2 - 100);
+		drawText(gc, "press SPACE to play", width / 2, height / 2 + 70);
 	}
 
 	/**
@@ -71,9 +73,9 @@ public class Main extends Application {
 	 */
 	private void renderGameOverScreen(GraphicsContext gc) {
 		coverBackground(gc);
-		drawText(gc, "GAME OVER", WIDTH / 2, HEIGHT / 2 - 100);
-		drawText(gc, "Score: " + game.getScore(), WIDTH / 2, HEIGHT / 2);
-		drawText(gc, "press R to\n play again", WIDTH / 2, HEIGHT / 2 + 70);
+		drawText(gc, "GAME OVER", width / 2, height / 2 - 100);
+		drawText(gc, "Score: " + game.getScore(), width / 2, height / 2);
+		drawText(gc, "press R to\n play again", width / 2, height / 2 + 70);
 	}
 
 	/**
@@ -83,8 +85,8 @@ public class Main extends Application {
 	 */
 	private void renderPauseScreen(GraphicsContext gc) {
 		coverBackground(gc);
-		drawText(gc, "PAUSED", WIDTH / 2, HEIGHT / 2 - 100);
-		drawText(gc, "press SPACE to\n continue or ESC to quit", WIDTH / 2, HEIGHT / 2 + 70);
+		drawText(gc, "PAUSED", width / 2, height / 2 - 100);
+		drawText(gc, "press SPACE to\n continue or ESC to quit", width / 2, height / 2 + 70);
 	}
 
 	/**
@@ -96,7 +98,7 @@ public class Main extends Application {
 			// initialisierung vom Spiel
 			gameState = GameState.TITLE_SCREEN;
 			BorderPane root = new BorderPane();
-			canvas = new Canvas(WIDTH, HEIGHT);
+			canvas = new Canvas(width, height);
 			gc = canvas.getGraphicsContext2D();
 			root.getChildren().add(canvas);
 			renderTitleScreen(gc);
@@ -123,7 +125,7 @@ public class Main extends Application {
 				}
 			};
 
-			Scene scene = new Scene(root, WIDTH, HEIGHT);
+			Scene scene = new Scene(root, width, height);
 			primaryStage.setScene(scene);
 
 			// Keypresses festlegen

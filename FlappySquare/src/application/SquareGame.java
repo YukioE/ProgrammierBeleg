@@ -1,31 +1,38 @@
-package application;
+//package application;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class BlobGame {
+public class SquareGame {
 
-	public static final double GRAVITY = 0.1;
+	public static final double GRAVITY = 0.2;
 	public static final int WINDOW_WIDTH = 700;
 	public static final int WINDOW_HEIGHT = 700;
-	public static final Image TOP_PIPE_IMG = new Image(BlobGame.class.getResource("pipe.png").toExternalForm());
-	public static final Image BOTTOM_PIPE_IMG = new Image(BlobGame.class.getResource("pipe2.png").toExternalForm());
-	
-	private Score score, highscore;
-	private GameCharacter character;
-	private ArrayList<Obstacle> obstacles;
+	public static final Image PIPE_HEAD_IMG = new Image(
+			SquareGame.class.getResource("pipe_head.png").toExternalForm());
+	public static final Image PIPE_BODY_IMG = new Image(SquareGame.class.getResource("pipe_body.png").toExternalForm());
+
+	private double backgroundPos1, backgroundPos2;
+	private final double scrollSpeed = 0.3;
+	private final Image backgroundImg, sunImg;
+	private final Score score, highscore;
+	private final GameCharacter character;
+	private final ArrayList<Obstacle> obstacles;
 
 	/**
 	 * Konstruktor welcher gleichzeitig als Spiel Initialisierung dient
 	 */
-	public BlobGame() {
+	public SquareGame() {
 		character = new GameCharacter();
 		obstacles = new ArrayList<Obstacle>();
 		score = new Score(false);
 		highscore = new Score(true);
+		backgroundImg = new Image(getClass().getResource("background.png").toExternalForm());
+		sunImg = new Image(getClass().getResource("sun.png").toExternalForm());
+		backgroundPos1 = 0;
+		backgroundPos2 = backgroundImg.getWidth();
 		obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
 	}
 
@@ -34,10 +41,23 @@ public class BlobGame {
 	 * und neue Hindernisse hinzufügt
 	 */
 	public void update() {
-		// Blob Position mit Schwerkraft updaten
+		// GameCharacter Position mit Schwerkraft updaten
 		character.updatePos(GRAVITY);
-		
+
 		checkScoreCollision();
+
+		// Positionen des Hintergrundbild updaten
+		backgroundPos1 -= scrollSpeed;
+		backgroundPos2 -= scrollSpeed;
+
+		// Hintergrundbilder wieder nach Rechts verschieben falls sie nicht mehr zu
+		// sehen sind
+		if (backgroundPos1 <= -backgroundImg.getWidth()) {
+			backgroundPos1 = backgroundImg.getWidth();
+		}
+		if (backgroundPos2 <= -backgroundImg.getWidth()) {
+			backgroundPos2 = backgroundImg.getWidth();
+		}
 
 		// Hindernisse updaten + entfernen sobald sie nicht mehr zu sehen sind
 		for (Obstacle obstacle : obstacles) {
@@ -45,7 +65,7 @@ public class BlobGame {
 
 			// Hindernis wird entfernt sobald seine letzten Pixel nicht mehr zu sehen sind
 			if (obstacle.getPosition() + obstacle.getWidth() <= 0) {
-				obstacles.removeFirst();
+				obstacles.remove(0);
 				break;
 			}
 		}
@@ -53,8 +73,8 @@ public class BlobGame {
 		// neues Hindernis erzeugen
 		// falls weniger als 4 Hindernisse auf dem Bildschirm sind und das neue
 		// Hindernis mit genügend Abstand platziert wird
-		if (obstacles.size() < 4 && obstacles.getLast().getPosition() + 300 <= WINDOW_WIDTH) {
-			obstacles.addLast(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, obstacles.getLast()));
+		if (obstacles.size() < 4 && obstacles.get(obstacles.size() - 1).getPosition() + 300 <= WINDOW_WIDTH) {
+			obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, obstacles.get(obstacles.size() - 1)));
 		}
 	}
 
@@ -66,8 +86,9 @@ public class BlobGame {
 	public void render(GraphicsContext gc) {
 
 		// Hintergrund rendern
-		gc.setFill(Color.LIGHTBLUE);
-		gc.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		gc.drawImage(backgroundImg, backgroundPos1, 0);
+		gc.drawImage(backgroundImg, backgroundPos2, 0);
+		gc.drawImage(sunImg, 0, 0);
 
 		// Charakter rendern
 		character.render(gc);
@@ -78,17 +99,17 @@ public class BlobGame {
 		}
 
 		// Scores rendern
-		score.render(25, 45, 45, gc);
-		highscore.render(25, 70, 25, gc);
+		score.render(10, 45, 45, gc);
+		highscore.render(10, 70, 25, gc);
 	}
 
 	/**
-	 * Sprung-Methode welche den Charakter "Springen" lässt,
-	 * falls er nicht über den oberen Fensterrand befinden wird.
+	 * Sprung-Methode welche den Charakter springen/fliegen lässt,
+	 * falls er sich nicht über dem oberen Fensterrand befinden wird.
 	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
-			character.setVelocity(-GRAVITY * 35);
+			character.setVelocity(-GRAVITY * GRAVITY * 125);
 		}
 	}
 
@@ -129,7 +150,8 @@ public class BlobGame {
 		for (Obstacle obstacle : obstacles) {
 			Rectangle scoreBox = obstacle.getScoreBox();
 
-			// falls Kollision -> Hindernis wird als scored markiert & Score wird um 1 erhöht
+			// falls Kollision -> Hindernis wird als scored markiert & Score wird um 1
+			// erhöht
 			if (intersects(characterCollision, scoreBox) && !obstacle.isScored()) {
 				obstacle.setScored(true);
 				score.incrementScore();
@@ -137,11 +159,11 @@ public class BlobGame {
 			}
 		}
 	}
-	
+
 	public Score getScore() {
 		return score;
 	}
-	
+
 	public Score getHighScore() {
 		return highscore;
 	}
