@@ -1,4 +1,4 @@
-package application;
+//package application;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +19,7 @@ import javafx.scene.text.TextAlignment;
 public class Score {
 
 	private int counter;
-	private final File SCORE_FILE = new File("Highscore.data");
+	private final File scoreFile = new File("Highscore.data");
 	private BufferedWriter out;
 	private BufferedReader in;
 
@@ -34,12 +34,12 @@ public class Score {
 			try {
 				
 				// falls kein Highscore existiert wird "0" verwendet
-				if (!SCORE_FILE.exists() || SCORE_FILE == null) {
+				if (!scoreFile.exists() || scoreFile == null) {
 					counter = 0;
 				} else {
 					
 					// Highscore einlesen
-					in = new BufferedReader(new FileReader(SCORE_FILE));
+					in = new BufferedReader(new FileReader(scoreFile));
 					String line = in.readLine();
 
 					if (line != null) {
@@ -72,12 +72,12 @@ public class Score {
 		try {
 
 			// Datei löschen falls ein älterer Highscore existiert
-			if (SCORE_FILE.exists()) {
-				Files.delete(Paths.get(SCORE_FILE.toString()));
+			if (scoreFile.exists()) {
+				Files.delete(Paths.get(scoreFile.toString()));
 			}
 
 			// Highscore in Datei schreiben
-			out = new BufferedWriter(new FileWriter(SCORE_FILE));
+			out = new BufferedWriter(new FileWriter(scoreFile));
 			out.write(String.valueOf(counter));
 
 			out.close();
@@ -105,7 +105,7 @@ public class Score {
 		
 		// Farbe einstellen
 		gc.setFill(Color.WHITESMOKE);
-		gc.setTextAlign(TextAlignment.CENTER);
+		gc.setTextAlign(TextAlignment.LEFT);
 		gc.setStroke(Color.BLACK);
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, fontSize));
 		
