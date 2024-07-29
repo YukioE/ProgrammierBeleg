@@ -11,7 +11,7 @@ public class GameCharacter {
 	private int posX, posY;
 	private final int size = 20;
 	private final Image characterImg, characterImg2;
-
+	
 	/**
 	 * Konstruktor
 	 */

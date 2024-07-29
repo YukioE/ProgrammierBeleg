@@ -49,14 +49,13 @@ public class Obstacle {
 		int tickAmount = (int) ((position - prevObstacle.getPosition()) / velocity);
 
 		// max Falldistanz berechnen
-		// GameCharacter static Velocity (3) + Schwerkraft * Anzahl Updates * Anzahl
-		// Updates
-		int maxFallDistance = (int) ((GameCharacter.INITIAL_VELOCITY + SquareGame.GRAVITY * tickAmount) * tickAmount);
+		// GameCharacter static Velocity * Anzahl Updates + Schwerkraft * Anzahl Updates
+		int maxFallDistance = (int) (GameCharacter.INITIAL_VELOCITY * tickAmount + SquareGame.GRAVITY * tickAmount);
 
 		// Position der Lücke wird zufällig bestimmt mit Vorraussetzungen
 		// sodass der Charakter diese erreichen kann
-		double minGapPos = Math.max(gapSize + 1, prevObstacle.getGapPos() + gapSize - maxFallDistance + 1);
-		double maxGapPos = Math.min(windowHeight - gapSize - 1, prevObstacle.getGapPos() + maxFallDistance - 1);
+		double minGapPos = Math.max(gapSize + 1, prevObstacle.getGapPos() - maxFallDistance / 1.5);
+		double maxGapPos = Math.min(windowHeight - 1, prevObstacle.getGapPos() + maxFallDistance);
 		gapPos = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
 	}
 
