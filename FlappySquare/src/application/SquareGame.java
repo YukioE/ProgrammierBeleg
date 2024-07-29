@@ -1,4 +1,4 @@
-//package application;
+package application;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;

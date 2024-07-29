@@ -1,4 +1,4 @@
-//package application;
+package application;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;

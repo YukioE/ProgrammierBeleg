@@ -1,4 +1,4 @@
-//package application;
+package application;
 
 public enum GameState {
 	TITLE_SCREEN,
