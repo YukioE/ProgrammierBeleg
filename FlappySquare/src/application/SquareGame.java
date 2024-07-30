@@ -5,20 +5,69 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Klasse zur Verwaltung des Spiel Objekts
+ * 
+ * @author Timo Hoffmann
+ * @version 1.0
+ */
 public class SquareGame {
 
+	/**
+	 * globale Schwerkraft
+	 */
 	public static final double GRAVITY = 0.2;
+
+	/**
+	 * Spiel- und Fensterbreite
+	 */
 	public static final int WINDOW_WIDTH = 700;
+
+	/**
+	 * Spiel- und Fensterhöhe
+	 */
 	public static final int WINDOW_HEIGHT = 700;
+
+	/**
+	 * Bild des Hindernis-/Röhrenkopfes
+	 */
 	public static final Image PIPE_HEAD_IMG = new Image(
 			SquareGame.class.getResource("pipe_head.png").toExternalForm());
-	public static final Image PIPE_BODY_IMG = new Image(SquareGame.class.getResource("pipe_body.png").toExternalForm());
 
+	/**
+	 * Bild des Hindernis-/Röhrenkörpers
+	 */
+	public static final Image PIPE_BODY_IMG = new Image(
+			SquareGame.class.getResource("pipe_body.png").toExternalForm());
+
+	/**
+	 * x Koordinaten der 2 Hintergründe 
+	 */
 	private double backgroundPos1, backgroundPos2;
+
+	/**
+	 * Hintergrundgeschwindigkeit
+	 */
 	private final double scrollSpeed = 0.3;
+
+	/**
+	 * Bilder des Hintergrundes
+	 */
 	private final Image backgroundImg, sunImg;
+
+	/**
+	 * Score und Highscore Objekte
+	 */
 	private final Score score, highscore;
+
+	/**
+	 * GameCharacter Objekt
+	 */
 	private final GameCharacter character;
+
+	/**
+	 * Liste der Hindernisse
+	 */
 	private final ArrayList<Obstacle> obstacles;
 
 	/**
@@ -44,6 +93,8 @@ public class SquareGame {
 		// GameCharacter Position mit Schwerkraft updaten
 		character.updatePos(GRAVITY);
 
+		// checkt ob sich der Charakter in einer ScoreBox befindet
+		// und erhöht den Scorecounter falls dies der Fall ist
 		checkScoreCollision();
 
 		// Positionen des Hintergrundbild updaten
@@ -114,8 +165,8 @@ public class SquareGame {
 	}
 
 	/**
-	 * Methode welche auf Kollision von Charakter mit Hindernissen sowie dem Boden
-	 * prüft
+	 * Methode welche auf Kollision von Charakter mit Hindernissen
+	 * sowie dem Boden prüft
 	 * 
 	 * @return true falls Kollision, false falls nicht
 	 */
@@ -142,7 +193,7 @@ public class SquareGame {
 
 	/**
 	 * Methode welche überprüft ob der Charakter mit einer Scorebox kollidiert und
-	 * den Score counter in diesem Fall um 1 erhöht
+	 * den Scorecounter in diesem Fall um 1 erhöht
 	 */
 	public void checkScoreCollision() {
 		Rectangle characterCollision = character.getCollision();
@@ -160,10 +211,16 @@ public class SquareGame {
 		}
 	}
 
+	/**
+	 * @return Score Objekt
+	 */
 	public Score getScore() {
 		return score;
 	}
 
+	/**
+	 * @return HighScore Objekt
+	 */
 	public Score getHighScore() {
 		return highscore;
 	}

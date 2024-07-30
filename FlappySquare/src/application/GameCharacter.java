@@ -4,12 +4,37 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Klasse zur Verwaltung des GameCharacter Objekts
+ * 
+ * @author Timo Hoffmann
+ * @version 1.0
+ */
 public class GameCharacter {
 
+	/**
+	 * globale ursprüngliche velocity
+	 */
 	public static final double INITIAL_VELOCITY = 3;
+
+	/**
+	 * aktuelle velocity
+	 */
 	private double velocity;
+
+	/**
+	 * Koordinaten
+	 */
 	private int posX, posY;
+
+	/**
+	 * Größe
+	 */
 	private final int size = 20;
+
+	/**
+	 * Bilder des GameCharacters
+	 */
 	private final Image characterImg, characterImg2;
 	
 	/**
@@ -23,15 +48,29 @@ public class GameCharacter {
 		characterImg2 = new Image(getClass().getResource("character2.png").toExternalForm());		
 	}
 
+	/**
+	 * aktualisiert die Position des Charakters basierend
+	 * auf der velocity und der Schwerkraft
+	 * 
+	 * @param gravity
+	 */
 	public void updatePos(double gravity) {
 		velocity += gravity;
 		posY += velocity;
 	}
 
+	/**
+	 * @return y Koordinate
+	 */
 	public int getPosY() {
 		return posY;
 	}
 
+	/**
+	 * setzt aktuelle velocity
+	 * 
+	 * @param velocity
+	 */
 	public void setVelocity(double velocity) {
 		this.velocity = velocity;
 	}

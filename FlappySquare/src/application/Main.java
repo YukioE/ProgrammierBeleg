@@ -14,19 +14,44 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Klasse zur Verwaltung des Hauptfensters und des Spiels
+ * 
+ * @author Timo Hoffmann
+ * @version 1.0
+ */
 public class Main extends Application {
 
+	/**
+	 * Fensterbreite
+	 */
 	private final int width = SquareGame.WINDOW_WIDTH;
-	private final int height = SquareGame.WINDOW_HEIGHT;
-	private SquareGame game;
-	private GraphicsContext gc;
-	private Canvas canvas;
-	private AnimationTimer timer;
-	private GameState gameState;
 
 	/**
-	 * Helfer Methode um Text zu rendern, verringert die benötigten Zeilen an
-	 * Quellcode
+	 * Fensterhöhe
+	 */
+	private final int height = SquareGame.WINDOW_HEIGHT;
+
+	/**
+	 * Spiel Objekt
+	 */
+	private SquareGame game;
+
+	/**
+	 * Gameloop
+	 */
+	private AnimationTimer timer;
+
+	/**
+	 * aktueller GameState
+	 */
+	private GameState gameState;
+	private GraphicsContext gc;
+	private Canvas canvas;
+
+	/**
+	 * Helfer Methode um Text zu rendern, verringert die benötigten
+	 * Zeilen an Quellcode
 	 * 
 	 * @param gc
 	 * @param text
@@ -43,8 +68,8 @@ public class Main extends Application {
 	}
 
 	/**
-	 * Helfer Methode um das Bild zu verdunkeln, wird in Titel-, Pause- und Game
-	 * Over Screen benutzt
+	 * Helfer Methode um das Bild zu verdunkeln, wird in Titel-, Pause-
+	 * und GameOver Screen benutzt
 	 * 
 	 * @param gc
 	 */
@@ -67,7 +92,7 @@ public class Main extends Application {
 	}
 
 	/**
-	 * rendert den Game Over Screen
+	 * rendert den GameOver Screen
 	 * 
 	 * @param gc
 	 */
@@ -91,7 +116,7 @@ public class Main extends Application {
 
 	/**
 	 * erstellt Fenster, bereitet Spiel vor und enthält wichtige Spielmechaniken,
-	 * wie z.B. die Game Loop und die Verwaltung von GameStates und Keypresses
+	 * wie z.B. die Gameloop und die Verwaltung von GameStates und Keypresses
 	 */
 	public void start(Stage primaryStage) {
 		try {
@@ -103,8 +128,8 @@ public class Main extends Application {
 			root.getChildren().add(canvas);
 			renderTitleScreen(gc);
 
-			// AnimationsTimer, aktualisiert Positionen und Grafiken von Objekten,
-			// prüft Game Over Mechanik und
+			// AnimationsTimer, aktualisiert Positionen und Grafiken von
+			// Objekten, prüft GameOver Mechanik und lässt den Highscore speichern
 			timer = new AnimationTimer() {
 				@Override
 				public void handle(long now) {

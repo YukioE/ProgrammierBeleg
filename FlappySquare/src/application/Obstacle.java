@@ -3,17 +3,44 @@ package application;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Klasse zur Verwaltung der Hindernis Objekte
+ * 
+ * @author Timo Hoffmann
+ * @version 1.0
+ */
 public class Obstacle {
 
-	// position ist linke xPos des Hindernis
-	// velocity die Geschwindigkeit
-	// gapPos die untere yPos der Lücke
-	private double position;
 	private boolean scored;
-	private final int gapSize = 150;
+
+	/**
+	 * linke x Koordinate des Hindernis
+	 */
+	private double position;
+	
+	/**
+	 * untere y Koordinate der Lücke im Hindernis
+	 */
 	private final double gapPos;
+
+	/**
+	 * Geschwindigkeit der Hindernisse/des Spiels
+	 */
 	private final double velocity = 2.5;
+
+	/**
+	 * Größe des Lücke im Hindernis
+	 */
+	private final int gapSize = 150;
+
+	/**
+	 * Breite des Hindernis
+	 */
 	private final double width = 100;
+
+	/**
+	 * Höhe des Hindernis
+	 */
 	private final double height;
 
 	/**
@@ -59,22 +86,37 @@ public class Obstacle {
 		gapPos = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
 	}
 
+	/**
+	 * @return linke x Koordinate des Hindernis
+	 */
 	public double getPosition() {
 		return position;
 	}
 
+	/**
+	 * @return Breite des Hindernis
+	 */
 	public double getWidth() {
 		return width;
 	}
 
+	/**
+	 * @return untere y Koordinate der Lücke im Hindernis
+	 */
 	public double getGapPos() {
 		return gapPos;
 	}
 
+	/**
+	 * updated die Position des Hindernis basierend auf der velocity
+	 */
 	public void updatePosition() {
 		position -= velocity;
 	}
 
+	/**
+	 * @return ob das Hindernis schon gescored wurde
+	 */
 	public boolean isScored() {
 		return scored;
 	}
@@ -105,7 +147,7 @@ public class Obstacle {
 				height);
 
 		// Debug um ScoreBoxen/Trigger zu rendern
-		// gc.setFill(Color.GOLD);
+		// gc.setFill(Color.BLACK);
 		// gc.fillRect(position + WIDTH + 20, gapPos - GAP_SIZE, 10, GAP_SIZE);
 	}
 

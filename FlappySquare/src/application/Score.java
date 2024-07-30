@@ -16,9 +16,22 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Klasse zur Verwaltung der Score Objekte
+ * 
+ * @author Timo Hoffmann
+ * @version 1.0
+ */
 public class Score {
 
+	/**
+	 * Integer Wert des Score Objekts
+	 */
 	private int counter;
+
+	/**
+	 * Datei zur Speicherung des Highscores
+	 */
 	private final File scoreFile = new File("Highscore.data");
 	private BufferedWriter out;
 	private BufferedReader in;
@@ -62,7 +75,6 @@ public class Score {
 		} else {
 			counter = 0;
 		}
-
 	}
 
 	/**
@@ -114,10 +126,16 @@ public class Score {
 		gc.strokeText(String.valueOf(counter), posX, posY);		
 	}
 
+	/**
+	 * @return den Score Wert 
+	 */
 	public int getCounter() {
 		return counter;
 	}
 	
+	/**
+	 * @return den Integer Wert des Scorecounters als String
+	 */
 	public String toString() {
 		return String.valueOf(counter);
 	}
