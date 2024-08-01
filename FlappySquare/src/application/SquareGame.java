@@ -32,13 +32,13 @@ public class SquareGame {
 	 * Bild des Hindernis-/Röhrenkopfes
 	 */
 	public static final Image PIPE_HEAD_IMG = new Image(
-			SquareGame.class.getResource("pipe_head.png").toExternalForm());
+		SquareGame.class.getResource("pipe_head.png").toExternalForm());
 
 	/**
 	 * Bild des Hindernis-/Röhrenkörpers
 	 */
 	public static final Image PIPE_BODY_IMG = new Image(
-			SquareGame.class.getResource("pipe_body.png").toExternalForm());
+		SquareGame.class.getResource("pipe_body.png").toExternalForm());
 
 	/**
 	 * x Koordinaten der 2 Hintergründe 
