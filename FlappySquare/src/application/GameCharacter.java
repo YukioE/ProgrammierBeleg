@@ -54,7 +54,7 @@ public class GameCharacter {
 	 * 
 	 * @param gravity
 	 */
-	public void updatePos(double gravity) {
+	public void updatePosition(double gravity) {
 		velocity += gravity;
 		posY += velocity;
 	}

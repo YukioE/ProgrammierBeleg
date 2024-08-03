@@ -91,7 +91,7 @@ public class SquareGame {
 	 */
 	public void update() {
 		// GameCharacter Position mit Schwerkraft updaten
-		character.updatePos(GRAVITY);
+		character.updatePosition(GRAVITY);
 
 		// checkt ob sich der Charakter in einer ScoreBox befindet
 		// und erhöht den Scorecounter falls dies der Fall ist
@@ -121,10 +121,9 @@ public class SquareGame {
 			}
 		}
 
-		// neues Hindernis erzeugen
-		// falls weniger als 4 Hindernisse auf dem Bildschirm sind und das neue
-		// Hindernis mit genügend Abstand platziert wird
-		if (obstacles.size() < 4 && obstacles.get(obstacles.size() - 1).getPosition() + 300 <= WINDOW_WIDTH) {
+		// neues Hindernis erzeugen falls das neue
+		// Hindernis mit genügend Abstand platziert werden kann
+		if (obstacles.get(obstacles.size() - 1).getPosition() + 300 <= WINDOW_WIDTH) {
 			obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, obstacles.get(obstacles.size() - 1)));
 		}
 	}

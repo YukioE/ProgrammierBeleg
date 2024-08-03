@@ -156,33 +156,43 @@ public class Main extends Application {
 			// Keypresses festlegen
 			primaryStage.getScene().setOnKeyPressed(e -> {
 
-				// Space startet/führt das Spiel fort bzw lässt den Charakter fliegen
-				if (e.getCode() == KeyCode.SPACE) {
-					if (gameState == GameState.TITLE_SCREEN || gameState == GameState.PAUSED) {
-						timer.start();
-						gameState = GameState.RUNNING;
-					} else if (gameState == GameState.RUNNING) {
-						game.jump();
-					}
-
+				switch (e.getCode()) {
+					// Space startet/führt das Spiel fort bzw lässt den Charakter fliegen
+					case KeyCode.SPACE:
+						if (gameState == GameState.TITLE_SCREEN || gameState == GameState.PAUSED) {
+							timer.start();
+							gameState = GameState.RUNNING;
+						} else if (gameState == GameState.RUNNING) {
+							game.jump();
+						}
+						break;
+					
 					// R startet das spiel neu
-				} else if (e.getCode() == KeyCode.R && gameState == GameState.GAME_OVER) {
-					renderTitleScreen(gc);
-					gameState = GameState.TITLE_SCREEN;
+					case KeyCode.R:
+						if (gameState == GameState.GAME_OVER) {
+							renderTitleScreen(gc);
+							gameState = GameState.TITLE_SCREEN;
+						}
+						break;
 
 					// Escape pausiert das Spiel bzw schließt das Spiel
-				} else if (e.getCode() == KeyCode.ESCAPE) {
-					// Spiel pausieren während es läuft
-					if (gameState == GameState.RUNNING) {
-						renderPauseScreen(gc);
-						timer.stop();
-						gameState = GameState.PAUSED;
+					case KeyCode.ESCAPE:
+
+						// Spiel pausieren während es läuft
+						if (gameState == GameState.RUNNING) {
+							renderPauseScreen(gc);
+							timer.stop();
+							gameState = GameState.PAUSED;
 
 						// Spiel schließen
-					} else if (gameState == GameState.PAUSED || gameState == GameState.TITLE_SCREEN
-							|| gameState == GameState.GAME_OVER) {
-						primaryStage.close();
-					}
+						} else if (gameState == GameState.PAUSED || gameState == GameState.TITLE_SCREEN
+								|| gameState == GameState.GAME_OVER) {
+							primaryStage.close(); 
+						}
+						break;
+
+					default:
+						break;
 				}
 			});
 
