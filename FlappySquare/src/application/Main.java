@@ -147,6 +147,8 @@ public class Main extends Application {
 						// Spiel beenden falls Kollision mit Hindernis erkannt wurde
 						this.stop();
 						renderGameOverScreen(gc);
+						// Garbage Collector ausführen
+						System.gc();
 					}
 				}
 			};
