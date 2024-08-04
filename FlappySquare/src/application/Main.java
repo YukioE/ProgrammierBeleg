@@ -87,8 +87,9 @@ public class Main extends Application {
 		game = new SquareGame();
 		game.render(gc);
 		coverBackground(gc);
-		drawText(gc, "FLAPPYSQUARE", width / 2, height / 2 - 100);
+		drawText(gc, "FLAPPY SQUARE", width / 2, height / 2 - 100);
 		drawText(gc, "press SPACE to play", width / 2, height / 2 + 70);
+		gameState = GameState.TITLE_SCREEN;
 	}
 
 	/**
@@ -101,6 +102,7 @@ public class Main extends Application {
 		drawText(gc, "GAME OVER", width / 2, height / 2 - 100);
 		drawText(gc, "Score: " + game.getScore(), width / 2, height / 2);
 		drawText(gc, "press R to\n play again", width / 2, height / 2 + 70);
+		gameState = GameState.GAME_OVER;
 	}
 
 	/**
@@ -112,6 +114,7 @@ public class Main extends Application {
 		coverBackground(gc);
 		drawText(gc, "PAUSED", width / 2, height / 2 - 100);
 		drawText(gc, "press SPACE to\n continue or ESC to quit", width / 2, height / 2 + 70);
+		gameState = GameState.PAUSED;
 	}
 
 	/**
@@ -121,7 +124,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			// initialisierung vom Spiel
-			gameState = GameState.TITLE_SCREEN;
 			BorderPane root = new BorderPane();
 			canvas = new Canvas(width, height);
 			gc = canvas.getGraphicsContext2D();
@@ -144,7 +146,6 @@ public class Main extends Application {
 
 						// Spiel beenden falls Kollision mit Hindernis erkannt wurde
 						this.stop();
-						gameState = GameState.GAME_OVER;
 						renderGameOverScreen(gc);
 					}
 				}
@@ -171,7 +172,6 @@ public class Main extends Application {
 					case KeyCode.R:
 						if (gameState == GameState.GAME_OVER) {
 							renderTitleScreen(gc);
-							gameState = GameState.TITLE_SCREEN;
 						}
 						break;
 
@@ -182,7 +182,6 @@ public class Main extends Application {
 						if (gameState == GameState.RUNNING) {
 							renderPauseScreen(gc);
 							timer.stop();
-							gameState = GameState.PAUSED;
 
 						// Spiel schließen
 						} else if (gameState == GameState.PAUSED || gameState == GameState.TITLE_SCREEN

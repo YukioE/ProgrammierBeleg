@@ -16,7 +16,7 @@ public class SquareGame {
 	/**
 	 * globale Schwerkraft
 	 */
-	public static final double GRAVITY = 0.2;
+	public static final double GRAVITY = 0.17;
 
 	/**
 	 * Spiel- und Fensterbreite
@@ -159,7 +159,7 @@ public class SquareGame {
 	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
-			character.setVelocity(-GameCharacter.INITIAL_VELOCITY * 1.68);
+			character.setVelocity(-GameCharacter.INITIAL_VELOCITY * 1.6);
 		}
 	}
 
