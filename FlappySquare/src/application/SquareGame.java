@@ -159,7 +159,7 @@ public class SquareGame {
 	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
-			character.setVelocity(-GRAVITY * GRAVITY * 125);
+			character.setVelocity(-GameCharacter.INITIAL_VELOCITY * 1.68);
 		}
 	}
 
@@ -232,8 +232,7 @@ public class SquareGame {
 	 * @return true falls Rechtecke sich schneiden, false falls nicht
 	 */
 	public boolean intersects(Rectangle r1, Rectangle r2) {
-		return r1.getX() <= r2.getX() + r2.getWidth() && r1.getX() + r1.getWidth() >= r2.getX()
-				&& r1.getY() <= r2.getY() + r2.getHeight() && r1.getY() + r1.getHeight() >= r2.getY();
+		return r1.getBoundsInParent().intersects(r2.getBoundsInParent());
 	}
 
 }
