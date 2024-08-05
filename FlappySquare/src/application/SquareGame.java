@@ -125,8 +125,6 @@ public class SquareGame {
 		// Hindernis mit genügend Abstand platziert werden kann
 		if (obstacles.get(obstacles.size() - 1).getPosition() + 300 <= WINDOW_WIDTH) {
 			obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, obstacles.get(obstacles.size() - 1)));
-			// Garbage Collector ausführen
-			System.gc();
 		}
 	}
 
