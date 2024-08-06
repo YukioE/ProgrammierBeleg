@@ -208,6 +208,9 @@ public class SquareGame {
 			if (intersects(characterCollision, scoreBox) && !obstacle.isScored()) {
 				obstacle.setScored(true);
 				score.incrementScore();
+				if (score.getCounter() > highscore.getCounter()) {
+					highscore.setCounter(score.getCounter());
+				}
 				break;
 			}
 		}

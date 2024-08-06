@@ -140,7 +140,7 @@ public class Main extends Application {
 					if (game.checkCollision()) {
 
 						// Highscore speichern falls der aktuelle Score höher ist
-						if (game.getScore().getCounter() > game.getHighScore().getCounter()) {
+						if (game.getScore().getCounter() >= game.getHighScore().getCounter()) {
 							game.getScore().saveScore();
 						}
 

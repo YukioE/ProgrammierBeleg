@@ -104,7 +104,7 @@ public class Score {
 	public void incrementScore() {
 		counter++;
 	}
-	
+
 	/**
 	 * rendert den Score Counter
 	 * 
@@ -125,7 +125,7 @@ public class Score {
 		gc.fillText(String.valueOf(counter), posX, posY);
 		gc.strokeText(String.valueOf(counter), posX, posY);		
 	}
-
+	
 	/**
 	 * @return den Score Wert 
 	 */
@@ -133,6 +133,15 @@ public class Score {
 		return counter;
 	}
 	
+	/**
+	 * Methode um den Score auf einen bestimmten Wert zu setzen
+	 * 
+	 * @param value
+	 */
+	public void setCounter(int value) {
+		counter = value;
+	}
+
 	/**
 	 * @return den Integer Wert des Scorecounters als String
 	 */
