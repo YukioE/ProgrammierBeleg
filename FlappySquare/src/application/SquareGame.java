@@ -16,7 +16,7 @@ public class SquareGame {
 	/**
 	 * globale Schwerkraft
 	 */
-	public static final double GRAVITY = 0.17;
+	public static final double GRAVITY = 0.13;
 
 	/**
 	 * Spiel- und Fensterbreite
@@ -126,7 +126,7 @@ public class SquareGame {
 
 		// neues Hindernis erzeugen falls das neue
 		// Hindernis mit genügend Abstand platziert werden kann
-		if (obstacles.get(obstacles.size() - 1).getPosition() + 300 <= WINDOW_WIDTH) {
+		if (obstacles.get(obstacles.size() - 1).getPosition() + 325 <= WINDOW_WIDTH) {
 			obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT, obstacles.get(obstacles.size() - 1)));
 		}
 	}
@@ -162,7 +162,7 @@ public class SquareGame {
 	 */
 	public void jump() {
 		if ((character.getPosY() - 10) > 0) {
-			character.setVelocity(-GameCharacter.INITIAL_VELOCITY * 1.6);
+			character.setVelocity(-GameCharacter.INITIAL_VELOCITY * 1.3);
 		}
 	}
 
