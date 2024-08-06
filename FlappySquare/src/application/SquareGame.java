@@ -80,9 +80,12 @@ public class SquareGame {
 		highscore = new Score(true);
 		backgroundImg = new Image(getClass().getResource("background.png").toExternalForm());
 		sunImg = new Image(getClass().getResource("sun.png").toExternalForm());
-		backgroundPos1 = 0;
-		backgroundPos2 = backgroundImg.getWidth();
 		obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
+
+		// Startposition des Hintergrunds zufällig wählen, damit
+		// der Hintergrund bei jedem Start unterschiedlich ist
+		backgroundPos1 = (int) -(Math.random() * (WINDOW_WIDTH + 1));
+		backgroundPos2 = backgroundPos1 + backgroundImg.getWidth();
 	}
 
 	/**
