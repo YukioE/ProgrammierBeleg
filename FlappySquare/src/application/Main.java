@@ -60,8 +60,8 @@ public class Main extends Application {
 	 * @param posY
 	 */
 	private void drawText(GraphicsContext gc, String text, double posX, double posY) {
-		gc.setFill(Color.BLACK);
-		gc.setStroke(Color.WHITE);
+		gc.setFill(Color.WHITE);
+		gc.setStroke(Color.BLACK);
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 45));
 		gc.fillText(text, posX, posY);
