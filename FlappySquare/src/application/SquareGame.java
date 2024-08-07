@@ -32,13 +32,13 @@ public class SquareGame {
 	 * Bild des Hindernis-/Röhrenkopfes
 	 */
 	public static final Image PIPE_HEAD_IMG = new Image(
-		SquareGame.class.getResource("pipe_head.png").toExternalForm());
+		SquareGame.class.getResource("pipe_head.png").toString());
 
 	/**
 	 * Bild des Hindernis-/Röhrenkörpers
 	 */
 	public static final Image PIPE_BODY_IMG = new Image(
-		SquareGame.class.getResource("pipe_body.png").toExternalForm());
+		SquareGame.class.getResource("pipe_body.png").toString());
 
 	/**
 	 * x Koordinaten der 2 Hintergründe 
@@ -78,8 +78,8 @@ public class SquareGame {
 		obstacles = new ArrayList<Obstacle>();
 		score = new Score(false);
 		highscore = new Score(true);
-		backgroundImg = new Image(getClass().getResource("background.png").toExternalForm());
-		sunImg = new Image(getClass().getResource("sun.png").toExternalForm());
+		backgroundImg = new Image(getClass().getResource("background.png").toString());
+		sunImg = new Image(getClass().getResource("sun.png").toString());
 		obstacles.add(new Obstacle(WINDOW_WIDTH, WINDOW_HEIGHT));
 
 		// Startposition des Hintergrunds zufällig wählen, damit

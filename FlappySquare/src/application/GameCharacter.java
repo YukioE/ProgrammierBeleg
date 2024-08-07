@@ -44,8 +44,8 @@ public class GameCharacter {
 		posX = 100;
 		posY = SquareGame.WINDOW_HEIGHT/2;
 		velocity = INITIAL_VELOCITY;
-		characterImg = new Image(getClass().getResource("character.png").toExternalForm());
-		characterImg2 = new Image(getClass().getResource("character2.png").toExternalForm());		
+		characterImg = new Image(getClass().getResource("character.png").toString());
+		characterImg2 = new Image(getClass().getResource("character2.png").toString());		
 	}
 
 	/**
