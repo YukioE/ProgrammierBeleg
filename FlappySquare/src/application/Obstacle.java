@@ -82,7 +82,7 @@ public class Obstacle {
 		// Position der Lücke wird zufällig bestimmt mit Vorraussetzungen
 		// sodass der Charakter diese erreichen kann
 		double minGapPos = Math.max(gapSize + 1, prevObstacle.getGapPos() - maxFallDistance / 1.5);
-		double maxGapPos = Math.min(windowHeight - 1, prevObstacle.getGapPos() + maxFallDistance);
+		double maxGapPos = Math.min(windowHeight - 1, prevObstacle.getGapPos() + maxFallDistance / 1.25);
 		gapPos = (int) (Math.random() * (maxGapPos - minGapPos + 1) + minGapPos);
 	}
 
