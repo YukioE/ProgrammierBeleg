@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -154,6 +155,8 @@ public class Main extends Application {
 			};
 
 			Scene scene = new Scene(root, width, height);
+			primaryStage.getIcons().add(new Image(getClass().getResource("character.png").toString()));
+			primaryStage.setTitle("Flappy Square!");
 			primaryStage.setScene(scene);
 
 			// Keypresses festlegen
