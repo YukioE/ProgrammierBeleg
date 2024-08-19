@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -164,7 +163,7 @@ public class Main extends Application {
 
 				switch (e.getCode()) {
 					// Space startet/führt das Spiel fort bzw lässt den Charakter fliegen
-					case KeyCode.SPACE:
+					case SPACE:
 						if (gameState == GameState.TITLE_SCREEN || gameState == GameState.PAUSED) {
 							timer.start();
 							gameState = GameState.RUNNING;
@@ -174,14 +173,14 @@ public class Main extends Application {
 						break;
 					
 					// R startet das spiel neu
-					case KeyCode.R:
+					case R:
 						if (gameState == GameState.GAME_OVER) {
 							renderTitleScreen(gc);
 						}
 						break;
 
 					// Escape pausiert das Spiel bzw schließt das Spiel
-					case KeyCode.ESCAPE:
+					case ESCAPE:
 
 						// Spiel pausieren während es läuft
 						if (gameState == GameState.RUNNING) {
